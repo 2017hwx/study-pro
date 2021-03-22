@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 和至少为 K 的最短子数组</title>
+</head>
+
+<body>
+    <div style="display: none;"><span>1111111111</span></div>
+    <div style="visibility: hidden;"><span>22222222222222</span></div>
+    <pre>
+        返回 A 的最短的非空连续子数组的长度，该子数组的和至少为 K 。
+
+如果没有和至少为 K 的非空子数组，返回 -1 。
+    </pre>
+    <script>
+        /**
+ * @param {number[]} A
+ * @param {number} K
+ * @return {number}
+ */
+        var shortestSubarray = function (A, K) {
+            const len = A.length;
+            if (len === 0) {
+                return -1;
+            }
+            let minLen = -1;
+            for (let i = 0; i < len; i++) {
+                if (A[i] <= 0) {
+                    continue;
+                }
+                let j = 1;
+                while (i + j <= len && sumFun(A, i, i + j) < K) {
+                    j++;
+                }
+                if (i + j <= len && (minLen === -1 || minLen > j)) {
+                    minLen = j;
+                }
+                if (minLen === 1) {
+                    return minLen;
+                }
+            }
+            return minLen;
+        };
+        function sumFun(arr, s, e) {
+            if (s >= e) {
+                return 0;
+            }
+            let val = 0;
+            let newArr = arr.slice(s, e);
+            newArr.forEach(element => {
+                val += element;
+            });
+            return val;
+        }
+        shortestSubarray([2, -1, 2], 3)
+    </script>
+</body>
+
+</html>

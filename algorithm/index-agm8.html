@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p></p>
+    <pre>
+        请你实现三个 API append，addAll 和 multAll 来实现奇妙序列。
+
+        请实现 Fancy 类 ：
+        
+        Fancy() 初始化一个空序列对象。
+        void append(val) 将整数 val 添加在序列末尾。
+        void addAll(inc) 将所有序列中的现有数值都增加 inc 。
+        void multAll(m) 将序列中的所有现有数值都乘以整数 m 。
+        int getIndex(idx) 得到下标为 idx 处的数值（下标从 0 开始），并将结果对 109 + 7 取余。如果下标大于等于序列的长度，请返回 -1 
+        
+        输入：
+["Fancy", "append", "addAll", "append", "multAll", "getIndex", "addAll", "append", "multAll", "getIndex", "getIndex", "getIndex"]
+[[], [2], [3], [7], [2], [0], [3], [10], [2], [0], [1], [2]]
+输出：
+[null, null, null, null, null, 10, null, null, null, 26, 34, 20]
+
+    </pre>
+    <script>
+        var Fancy = function () {
+            this.initArr = [];
+            this.event = {};
+        };
+
+        /** 
+         * @param {number} val
+         * @return {void}
+         */
+        Fancy.prototype.append = function (val) {
+            this.initArr.push(val)
+        };
+
+        /** 
+         * @param {number} inc
+         * @return {void}
+         */
+        Fancy.prototype.addAll = function (inc) {
+            this.initArr.forEach((v, index) => {
+                if (this.event[index]) {
+                    this.event[index].push({ e: 'add', val: inc })
+                } else {
+                    this.event[index] = [{ e: 'add', val: inc }]
+                }
+            })
+        };
+
+        /** 
+         * @param {number} m
+         * @return {void}
+         */
+        Fancy.prototype.multAll = function (m) {
+            this.initArr.forEach((v, index) => {
+                if (this.event[index]) {
+                    this.event[index].push({ e: 'mul', val: m })
+                } else {
+                    this.event[index] = [{ e: 'mul', val: m }]
+                }
+            })
+        };
+
+        /** 
+         * @param {number} idx
+         * @return {number}
+         */
+        Fancy.prototype.getIndex = function (idx) {
+            if (idx >= this.initArr.length) {
+                return -1;
+            }
+            let val = this.initArr[idx];
+            if (this.event[idx]) {
+                this.event[idx].forEach(item => {
+                    if (item.e === 'add') {
+                        val += item.val;
+                    } else {
+                        val *= item.val;
+                    }
+                })
+            }
+            val = val % 1000000007
+            return val;
+        };
+        /**
+         * Your Fancy object will be instantiated and called as such:
+         * var obj = new Fancy()
+         * obj.append(val)
+         * obj.addAll(inc)
+         * obj.multAll(m)
+         * var param_4 = obj.getIndex(idx)
+         */
+        function createFancy(eventArr, valArr) {
+            const eLen = eventArr.length;
+            if (eLen === 0) {
+                return;
+            }
+            let initObj = null;
+            let resArr = []
+            for (let index = 0; index < eLen; index++) {
+                let value = valArr[index][0];
+                switch (eventArr[index]) {
+                    case "Fancy":
+                        initObj = new Fancy();
+                        resArr.push(null)
+                        break;
+                    case "append":
+                        initObj.append(value);
+                        resArr.push(null)
+                        break;
+                    case "addAll":
+                        initObj.addAll(value);
+                        resArr.push(null)
+                        break;
+                    case "multAll":
+                        initObj.multAll(value);
+                        resArr.push(null)
+                        break;
+                    case "getIndex":
+                        resArr.push(initObj.getIndex(value))
+                        break
+                    default:
+                        break;
+                }
+
+            }
+            console.log(resArr)
+            return initObj
+        }
+        let arr1 =["Fancy","append","append","append","append","append","append","addAll","multAll","multAll","append","addAll","append","getIndex","addAll","append","append","append","getIndex","multAll","getIndex","getIndex","multAll","getIndex","getIndex","multAll","append","append","append","append","multAll","append","multAll","addAll","getIndex","addAll","addAll","addAll","getIndex","addAll","append","addAll","addAll","addAll","append","multAll","addAll","append","append","addAll","append","addAll","getIndex","append","multAll","getIndex","addAll","multAll","append","append","addAll","append","getIndex","multAll","append","addAll","append","append","getIndex","getIndex","addAll","multAll","getIndex","multAll","getIndex","multAll","append","append","multAll","getIndex","getIndex","multAll","append","multAll","addAll","multAll","multAll","getIndex","append","getIndex"]
+        let arr2 =[[],[15],[6],[9],[13],[13],[7],[1],[14],[14],[10],[8],[2],[0],[15],[3],[12],[1],[2],[12],[7],[9],[2],[4],[1],[9],[1],[8],[13],[4],[12],[7],[8],[10],[1],[15],[14],[1],[15],[4],[9],[2],[7],[11],[12],[3],[14],[4],[2],[3],[4],[12],[7],[8],[12],[10],[1],[9],[4],[13],[4],[8],[15],[12],[12],[11],[8],[14],[18],[3],[15],[4],[0],[5],[13],[10],[6],[3],[15],[17],[0],[4],[12],[9],[14],[3],[10],[17],[8],[0]]
+       
+
+        createFancy(arr1, arr2)
+    </script>
+</body>
+
+</html>

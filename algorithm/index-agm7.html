@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>算法题</p>
+    <pre>
+
+
+1、数字涂色，涂相同色的数字都可以被同色的最小数整除，问最少需要多少种颜色？
+2、输入一个K，从1到100报数，报到K后移除K，然后下一个从1开始继续报数，直到剩下的人数比K小，问剩下的人原来的编号是多少？
+二星题：
+3、服务器广播问题，输入一个二维数组，1和0组成，array[i][j]==1表示i和j直接相连，不等于1是间接链接，
+直接和间接连接的服务器都可以互通广播，比如：A和B直接连接，B和C直接连接，则A和C间接连接。
+问初始需要给几台服务器，才能使所有服务器收到广播？
+4、給一串字符串且均为大写字母，求出现次数第K多的字母
+5、给一排数字，求出众数，众数再合成一个新数组，求新数组的中位数
+6、給一串整数排积木，要求把积木正好用完然后每层长度相同
+7、输入：字符串（保证长度小于100），字符串包含数字、大小写字母，大中小括号，括号可以嵌套（保证括号成对）。
+输出：将数字后面跟的括号内容按照数字重复拼接，然后整体倒叙输出。
+例如：输入：abc3(A)，输出：AAAcba。
+8、输入一个整数n(2<=n<=10000)，要求输出所有从1到这个整数之间(不包括1和这个整数)个位为1的素数，如果没有则输出-1。
+9、小明抽到字符串，小红抽到一个更长的，小红有限次的替换一个字母为另一个，比如最大替换次数为2
+请判断小红每次游戏时候能不能成功替换字母从而包含小明的字符串，可以请输出最小替换次数，不可以或者不需要替换输出0；
+输入三行：第一行小明的字符串
+第二行小红的字符串（长一些）
+第三行是最大允许替换次数
+10、一排包装箱从1编号，各个包装箱存放的货物数组成一个集合M={M1,M2,...,Mn}
+货车一次最多运送K件货物
+小王想一次从中挑选K的整数倍件货物，再分批运输。
+仓库管理员为了方便要求小王必须选择连续的包装箱，比如可选择1、2、3号箱，不能选2、4、6
+如果运输K整数倍件货物，请帮小王计算有多少种挑选方式
+输入：
+包装箱数N，货车最大一次运送的数量为K件
+各个箱子存放的货物M1，M2，M3。。。
+输入为两行：N K
+M1 M2 M3。。。
+N和K取值范围为[1,100000]
+第i个包装箱存放货物的取值范围也是[1,100000]
+输出：一行输出有多少种方式，如果不存在可行的方式，输出0
+    </pre>
+    <script>
+        //1111111111111111111111111
+        function colorCount(arr) {
+            if (!arr || arr.length === 0) {
+                return 0;
+            }
+            let count = 0;
+            while (arr.length > 0) {
+                arr = colorCountSub(arr)
+                count++;
+            }
+            return count;
+        }
+        function colorCountSub(arr) {
+            let newarr = [];
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] % arr[0] !== 0) {
+                    newarr.push(arr[i])
+                }
+            }
+            return newarr;
+        }
+        let aa = colorCount([2, 3, 4, 5, 6, 7, 8, 9, 10])
+        //2222222222222222222222222222222222
+
+        function baoshu(k) {
+            //1~100数组
+            let arr = [];
+            let num = 1;
+            while (num <= 100) {
+                arr.push(num);
+                num++;
+            }
+            while (arr.length > 1) {
+                if (arr.length >= k) {
+                    //console.log(arr[k - 1])
+                    arr = arr.slice(k, arr.length).concat(arr.slice(0, k - 1));
+                } else {
+                    let cur = k % arr.length;
+                    if (cur === 0) {
+                        cur = arr.length;
+                    }
+                    //console.log(arr[cur - 1])
+                    arr = arr.slice(cur, arr.length).concat(arr.slice(0, cur - 1));
+                }
+            }
+            return arr;
+        }
+        console.log(baoshu(3))
+        //33333333333333333333
+        function lianjie(arr) {
+            let newarr = []
+            let y = arr.length;
+            let x = arr[0].length;
+            for (let i = 0; i < y; i++) {
+                for (let j = 0; j < x; j++) {
+                    if (arr[i][j] === 1) {
+                        let xstr = '_x' + j;
+                        let ystr = '_y' + i;
+                        let isexist=false;
+                        for (let index = 0; index < newarr.length; index++) {
+                            if (newarr[index].indexOf(xstr) >= 0 || newarr[index].indexOf(ystr) >= 0) {
+                                newarr[index] += ystr + xstr;
+                                isexist=true;
+                            }
+                        }
+                        if(!isexist){
+                            newarr.push(ystr + xstr)
+                        }
+                    }
+                }
+            }
+            console.log(newarr)
+            return newarr.length;
+        }
+        console.log(lianjie([[1,1,0],[1,1,0],[0,0,1]]))
+        ///444444444444444444444444444444444444444444444444444444444444444444444444444444444444
+        function maxChar(str, k) {
+            let arr = [];
+            maxCharChild(str, arr);
+            arr.sort((a, b) => {
+                return b.count - a.count;
+            })
+            console.log(arr);
+            return arr[k - 1].n
+        }
+        function maxCharChild(newstr, lastArr) {
+            if (newstr.length <= 1) {
+                return;
+            }
+            let first = newstr.slice(0, 1);
+            let other = newstr.slice(1, newstr.length);
+            let arr = other.split(first);
+            let fLen = arr.length;
+            lastArr.push({ n: first, count: fLen })
+            maxCharChild(arr.join(''), lastArr)
+        }
+        console.log(maxChar('ABCABCAABSLAKFAFKACCCCCC', 2))
+        //77777777777777777777777777777777777777
+        function buildStr(str) {
+            if (!str || str.length > 100 || str.length <= 2) {
+                return str;
+            }
+
+        }
+        //88888888888888888888888888888888888
+        function sushuFun(n) {
+            if (n <= 11) {
+                return -1;
+            }
+            let arr = [];
+            for (let i = 12; i < n; i++) {
+                if (isprinme(i) && i.toString().endsWith('1')) {
+                    arr.push(i)
+                }
+            }
+            return arr;
+        }
+        function isprinme(num) {
+            if (num < 2) {
+                return false;
+            }
+            if (num === 2) {
+                return true;
+            }
+            for (let i = 2; i < num - 1; i++) {
+                if (num % i === 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        console.log(sushuFun(100))
+        //99999999999999999999999999999999
+        function strConFun(minStr, maxStr, k) {
+            if (!minStr || !maxStr || maxStr.length <= minStr.length) {
+                return 0;
+            }
+            if (maxStr.indexOf(minStr) >= 0) {
+                return 0;
+            }
+            let start = 1;
+            while (k >= start) {
+                let newMinStr = minStr
+                start++;
+            }
+            let minArr = minStr.split('');
+            for (let i = 0; i < minArr.length; i++) {
+
+                minArr[i]
+            }
+        }
+        function strConFunChild() {
+            for (let index = 0; index < minStr.length; index++) {
+                const element = array[index];
+
+            }
+        }
+        //1010101010101010010101010101
+
+        function cangchu() {
+
+        }
+        cangchu(13, 7000, [824, 1023, 934, 939, 1003, 1100, 854, 984, 954, 976, 879, 899, 1034])
+    </script>
+</body>
+
+</html>

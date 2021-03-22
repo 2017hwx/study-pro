@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>逆波兰表示法</title>
+</head>
+
+<body>
+    <pre>
+ 根据 逆波兰表示法，求表达式的值。
+ 有效的算符包括 +、-、*、/ 。每个运算对象可以是整数，也可以是另一个逆波兰表达式。
+整数除法只保留整数部分。
+给定逆波兰表达式总是有效的。换句话说，表达式总会得出有效数值且不存在除数为 0 的情况。
+示例 1：
+输入：tokens = ["2","1","+","3","*"]
+输出：9
+解释：该算式转化为常见的中缀算术表达式为：((2 + 1) * 3) = 9
+
+
+2\给定一个字符串，逐个翻转字符串中的每个单词。
+
+说明：
+
+无空格字符构成一个 单词 。
+输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。
+如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。
+3\
+
+给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。
+    </pre>
+    <script>
+        /**
+         * @param {string[]} tokens
+         * @return {number}
+         */
+        var evalRPN = function (tokens) {
+
+            const unit = ['+', '-', '*', '/'];
+            for (let i = 0; i < tokens.length; i++) {
+                const element = tokens[i];
+                if (unit.indexOf(element) >= 0) {
+                    let val = 0;
+                    let e1 = parseInt(tokens[i - 2]);
+                    let e2 = parseInt(tokens[i - 1]);
+                    if (element === '+') {
+                        val = e1 + e2;
+                    } else if (element === '-') {
+                        val = e1 - e2;
+                    }
+                    else if (element === '*') {
+                        val = e1 * e2;
+                    }
+                    else if (element === '/') {
+                        val = parseInt(e1 / e2);
+                    }
+                    tokens.splice(i - 2, 3, val);
+                    i -= 3;
+                }
+                console.log(tokens)
+            }
+            return tokens[0];
+        };
+
+        ///evalRPN(["10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"])
+        ///////////////////2222222222222222222222222222222222222222222222222
+        var reverseWords = function (s) {
+            let newArr = [];
+            let arr = s.trim().split(' ');
+            for (let index = 0; index < arr.length; index++) {
+                if (arr[index] !== "") {
+                    newArr.unshift(arr[index])
+                }
+            }
+            return newArr.join(" ");
+        };
+        //reverseWords("   the   sky   is   blue  ")
+        //33333333333333333333333333333333333333333333333333
+
+        var setZeroes = function (matrix) {
+            let y = matrix.length;
+            let x = matrix[0].length;
+            let xFlag = false;
+            let yFlag = false;
+            for (let i = 0; i < y; i++) {
+                if (matrix[i][0] === 0) {
+                    yFlag = true;
+                    break;
+                }
+            }
+            for (let j = 0; j < x; j++) {
+                if (matrix[0][j] === 0) {
+                    xFlag = true;
+                    break;
+                }
+            }
+            for (let i = 1; i < y; i++) {
+                for (let j = 1; j < x; j++) {
+                    if (matrix[i][j] === 0) {
+                        matrix[0][j] = 0;
+                        matrix[i][0] = 0;
+                    }
+                }
+            }
+            for (let i = 1; i < y; i++) {
+                if (matrix[i][0] === 0) {
+                    for (let j = 1; j < x; j++) {
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+            for (let j = 1; j < x; j++) {
+                if (matrix[0][j] === 0) {
+                    for (let i = 1; i < y; i++) {
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+            if (xFlag) {
+                for (let j = 0; j < x; j++) {
+                    matrix[0][j] = 0;
+                }
+            }
+            if (yFlag) {
+                for (let i = 0; i < y; i++) {
+                    matrix[i][0] = 0;
+                }
+            }
+            return matrix;
+        };
+        setZeroes([[1],[0]])
+    </script>
+</body>
+
+</html>

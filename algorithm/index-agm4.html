@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排序算法一</title>
+</head>
+
+<body>
+    <p>冒泡bubblesort、选择selectionSort、插入insertionSort、西尔shellSort</p>
+    <pre>
+        /**
+         * 冒泡（BubbleSort）
+        *step1:遍历，比较相邻大小，交换位置，确定最后一个为最大值
+        *step2:重复上述
+        */
+        function bubbleSort(arr) {
+            let count = 0;
+            let len = arr.length;
+            if (len < 2) {
+                return arr;
+            }
+            const swap = (arr, i, j) => {//交换
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            for (let i = 0; i < len - 1; i++) {
+                for (let j = 0; j < len - 1 - i; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        swap(arr,j,j+1);                    
+                    }
+                    count++;
+                }
+            }
+            console.log('bubbleSort', count)
+            return arr;
+        }
+        console.log(bubbleSort([3, 2, 5, 7, 4, 9, 6, 1]))
+        /**
+         * 选择（SelectionSort）
+        *step1:遍历，以第i个元素比较后面元素，找到最小元素，与i元素交换位置，确定前排元素
+        *step2:重复上述
+        */
+        function selectionSort(arr) {
+            let count = 0;
+            let len = arr.length;
+            if (len < 2) {
+                return arr;
+            }
+            const swap = (arr, i, j) => {//交换
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            for (let i = 0; i < len - 1; i++) {
+                let min = i;
+                for (let j = i + 1; j < len; j++) {
+                    if (arr[min] > arr[j]) {
+                        min = j
+                    }
+                    count++;
+                }
+                swap(arr,min,i);   
+            }
+            console.log('selectionSort', count)
+            return arr;
+        }
+        console.log(selectionSort([3, 2, 5, 7, 4, 9, 6, 1]))
+        /**
+         * 选择（InsertionSort）
+        *step1:遍历，以第i个元素比较前段有序元素，持续往前与i元素大的交换位置
+        *step2:重复上述
+        */
+        function insertionSort(arr) {
+            let count = 0;
+            let len = arr.length;
+            if (len < 2) {
+                return arr;
+            }
+            const swap = (arr, i, j) => {//交换
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            for (let i = 1; i < len; i++) {
+                for (let j = i - 1; j >= 0 && arr[j] > arr[j + 1]; j--) {
+                    swap(arr,j,j+1); 
+                    count++;
+                }
+            }
+            console.log('insertionSort', count)
+            return arr;
+        }
+        console.log(insertionSort([3, 2, 5, 7, 4, 9, 6, 1]))
+        /**
+         * 选择（ShellSort）
+        *step1:先按间隔gap=floor(length/2)分段，每段插入排序，再间隔gap=floor(gap/2)分段，插入排序
+        *step2:重复上述
+        */
+        function shellSort(arr) {
+            let count = 0;
+            let len = arr.length;
+            if (len < 2) {
+                return arr;
+            }
+            const swap = (arr, i, j) => {//交换
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            for (let gap = Math.floor(len / 2); gap > 0; gap = Math.floor(gap / 2)) {
+                for (let i = gap; i < len; i++) {
+                    for (let j = i - gap; j >= 0 && arr[j] > arr[j + gap]; j -= gap) {
+                        swap(arr,j,j + gap); 
+                        count++;
+                    }
+                }
+            }
+            console.log('shellSort', count)
+            return arr;
+        }
+        console.log(shellSort([3, 2, 5, 7, 4, 9, 6, 1]))
+    </pre>
+    <script>
+        /**
+         * 冒泡（BubbleSort）
+        *step1:遍历，比较相邻大小，交换位置，确定最后一个为最大值
+        *step2:重复上述
+        */
+        function bubbleSort(arr) {
+            let count = 0;
+            let len = arr.length;
+            if (len < 2) {
+                return arr;
+            }
+            const swap = (arr, i, j) => {//交换
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            for (let i = 0; i < len - 1; i++) {
+                for (let j = 0; j < len - 1 - i; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        swap(arr,j,j+1);                    
+                    }
+                    count++;
+                }
+            }
+            console.log('bubbleSort', count)
+            return arr;
+        }
+        console.log(bubbleSort([3, 2, 5, 7, 4, 9, 6, 1]))
+        /**
+         * 选择（SelectionSort）
+        *step1:遍历，以第i个元素比较后面元素，找到最小元素，与i元素交换位置，确定前排元素
+        *step2:重复上述
+        */
+        function selectionSort(arr) {
+            let count = 0;
+            let len = arr.length;
+            if (len < 2) {
+                return arr;
+            }
+            const swap = (arr, i, j) => {//交换
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            for (let i = 0; i < len - 1; i++) {
+                let min = i;
+                for (let j = i + 1; j < len; j++) {
+                    if (arr[min] > arr[j]) {
+                        min = j
+                    }
+                    count++;
+                }
+                swap(arr,min,i);   
+            }
+            console.log('selectionSort', count)
+            return arr;
+        }
+        console.log(selectionSort([3, 2, 5, 7, 4, 9, 6, 1]))
+        /**
+         * 选择（InsertionSort）
+        *step1:遍历，以第i个元素比较前段有序元素，持续往前与i元素大的交换位置
+        *step2:重复上述
+        */
+        function insertionSort(arr) {
+            let count = 0;
+            let len = arr.length;
+            if (len < 2) {
+                return arr;
+            }
+            const swap = (arr, i, j) => {//交换
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            for (let i = 1; i < len; i++) {
+                for (let j = i - 1; j >= 0 && arr[j] > arr[j + 1]; j--) {
+                    swap(arr,j,j+1); 
+                    count++;
+                }
+            }
+            console.log('insertionSort', count)
+            return arr;
+        }
+        console.log(insertionSort([3, 2, 5, 7, 4, 9, 6, 1]))
+        /**
+         * 选择（ShellSort）
+        *step1:先按间隔gap=floor(length/2)分段，每段插入排序，再间隔gap=floor(gap/2)分段，插入排序
+        *step2:重复上述
+        */
+        function shellSort(arr) {
+            let count = 0;
+            let len = arr.length;
+            if (len < 2) {
+                return arr;
+            }
+            const swap = (arr, i, j) => {//交换
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            for (let gap = Math.floor(len / 2); gap > 0; gap = Math.floor(gap / 2)) {
+                for (let i = gap; i < len; i++) {
+                    for (let j = i - gap; j >= 0 && arr[j] > arr[j + gap]; j -= gap) {
+                        swap(arr,j,j + gap); 
+                        count++;
+                    }
+                }
+            }
+            console.log('shellSort', count)
+            return arr;
+        }
+        console.log(shellSort([3, 2, 5, 7, 4, 9, 6, 1]))
+    </script>
+</body>
+
+</html>

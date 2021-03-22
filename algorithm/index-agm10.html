@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <pre>
+        给你单链表的头指针 head 和两个整数 left 和 right ，其中 left <= right 。
+        请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 。
+    </pre>
+    <script>
+        function ListNode(val = 0, next = null) {
+            this.val = val;
+            this.next = next;
+        }
+        function list2node(arr = []) {
+            let nodes = [];
+            for (let i = 0; i < arr.length; i++) {
+                let node = new ListNode(arr[i])
+                nodes.push(node);
+                if (i > 0) {
+                    nodes[i - 1].next = nodes[i];
+                }
+            }
+            return nodes[0];
+        }
+
+        let list = list2node([1, 2, 3]);
+
+        /**
+ * @param {ListNode} head
+ * @param {number} left
+ * @param {number} right
+ * @return {ListNode}
+ */
+        var reverseBetween = function (head, left, right) {
+            let list = []
+            let i = 0;
+            left = left - 1;
+            right = right - 1;
+            if (left === right) {
+                return head;
+            }
+            let mid = (right-left) / 2;
+            while (head != null) {
+                list.push(head);
+                head = head.next
+                if (i === right) {
+                    for (let j = 0; j < mid; j++) {
+                        let temp = list[right - j].val;
+                        list[right - j].val = list[left + j].val;
+                        list[left + j].val = temp;
+                    }
+                    break
+                }
+                i++;
+            }
+            return list[0]
+        };
+        console.log(reverseBetween(list, 2, 3))
+    </script>
+</body>
+
+</html>

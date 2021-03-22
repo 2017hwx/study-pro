@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二叉树</title>
+</head>
+
+<body>
+    <script>
+        //前序遍历，先遍历中间根节点，再左，最后右，A->B->C
+        //后序遍历，先左，再右，最后中间根节点,B->C->A
+        //中序遍历，先左，再中，最后右,B->A->C
+
+        /**
+         * 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。
+         *假设输入的前序遍历和中序遍历的结果中都不含重复的数字。
+         *例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
+        */
+        function TreeNode(x) {
+            this.val = x;
+            this.left = null;
+            this.right = null;
+        }
+
+        function beforSort(node, arr) {
+            if (!!node) {
+                arr.push(node.val);
+                beforSort(node.left, arr);
+                beforSort(node.right, arr);
+            }
+        }
+
+        function middleSort(node, arr) {
+            if (!!node) {
+                middleSort(node.left, arr);
+                arr.push(node.val);
+                middleSort(node.right, arr);
+            }
+        }
+
+        function createTreeNode(pre, vin, root) {
+            let len = vin.length;
+            if (len > 0) {
+                root.val = pre[0];
+                let i = vin.indexOf(pre[0]);
+                if (i > 0) {
+                    root.left = new TreeNode(0)
+                    createTreeNode(pre.slice(1, i + 1), vin.slice(0, i), root.left);
+                }
+                if (i < len - 1) {
+                    root.right = new TreeNode(0)
+                    createTreeNode(pre.slice(i + 1, len), vin.slice(i + 1, len), root.right)
+                }
+            }
+        }
+        function reConstructBinaryTree(pre, vin) {
+            let root = new TreeNode(0);
+            createTreeNode(pre, vin, root)
+            return root;
+        }
+        let lastNode = reConstructBinaryTree([1, 2, 4, 7, 3, 5, 6, 8], [4, 7, 2, 1, 5, 3, 8, 6]);
+        console.log(lastNode)
+        let bArr = [], mArr = [];
+        beforSort(lastNode, bArr)
+        console.log(bArr)
+        middleSort(lastNode, mArr)
+        console.log(mArr)
+
+    </script>
+</body>
+
+</html>

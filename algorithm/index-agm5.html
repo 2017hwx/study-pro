@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>排序算法二</title>
+</head>
+
+<body>
+    <p>快速排序quickSort、堆排序heapSort</p>
+    <pre>
+        /**
+                 * 快速（quickSort）
+                *step1:分治概念，选一个基准来比较，小的左，大的右。左右再分别递归之前过程
+                *step2:重复上述
+                */
+        function quickSort(arr) {
+            let count = 0;
+            let len = arr.length;
+            if (len < 2) {
+                return arr;
+            }
+            const swap = (arr, i, j) => {//交换
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            const sort = (arr, left = 0, right = arr.length - 1) => {
+                if (left >= right) {
+                    return false;
+                }
+                let p = left;//第一个为基准
+                for (let i = left + 1; i <= right; i++) {
+                    if (arr[p] > arr[i]) {//i元素放到左边
+                        swap(arr, p, i);
+                        if (p + 1 != i) {
+                            swap(arr, p + 1, i);
+                        }
+                        p++;
+                    }
+                    count++
+                }
+                sort(arr, left, p - 1);//左边递归
+                sort(arr, p + 1, right);//右边递归
+            }
+            sort(arr);
+            console.log('quickSort', count)
+            return arr;
+        }
+        console.log(quickSort([3, 2, 5, 7, 4, 9, 6, 1]))
+        /**
+             * 堆排序（heapSort）
+                *step1:建堆，序列分成无序和有序两组（初始有序为0）
+                *step2:取出堆顶最大的元素，与待排序列的最后一个元素作交换，至此，无序组--，有序组++，并对无序组进行堆调整
+                *
+                */
+        function heapSort(arr) {
+            let count = 0;
+            let len = 0;
+            const swap = (arr, i, j) => {//交换
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            const buildMaxHeap = (arr) => { // 建立大顶堆
+                len = arr.length;
+                for (var i = Math.floor(len / 2); i >= 0; i--) {
+                    heapify(arr, i);
+                }
+            }
+            const heapify = (arr, i) => { // 堆调整
+                var left = 2 * i + 1,
+                    right = 2 * i + 2,
+                    largest = i;
+
+                if (left < len && arr[left] > arr[largest]) {
+                    largest = left;
+                }
+
+                if (right < len && arr[right] > arr[largest]) {
+                    largest = right;
+                }
+
+                if (largest != i) {
+                    swap(arr, i, largest);
+                    heapify(arr, largest);
+                }
+                count++;
+            }
+
+            buildMaxHeap(arr);
+
+            for (let i = arr.length - 1; i > 0; i--) {
+                swap(arr, 0, i);
+                len--;
+                heapify(arr, 0);
+
+            }
+            console.log('heapSort', count)
+            return arr;
+        }
+        console.log(heapSort([3, 2, 5, 7, 4, 9, 6, 1]))
+    </pre>
+    <script>
+        /**
+                 * 快速（quickSort）
+                *step1:分治概念，选一个基准来比较，小的左，大的右。左右再分别递归之前过程
+                *step2:重复上述
+                */
+        function quickSort(arr) {
+            let count = 0;
+            let len = arr.length;
+            if (len < 2) {
+                return arr;
+            }
+            const swap = (arr, i, j) => {//交换
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            const sort = (arr, left = 0, right = arr.length - 1) => {
+                if (left >= right) {
+                    return false;
+                }
+                let p = left;//第一个为基准
+                for (let i = left + 1; i <= right; i++) {
+                    if (arr[p] > arr[i]) {//i元素放到左边
+                        swap(arr, p, i);
+                        if (p + 1 != i) {
+                            swap(arr, p + 1, i);
+                        }
+                        p++;
+                    }
+                    count++
+                }
+                sort(arr, left, p - 1);//左边递归
+                sort(arr, p + 1, right);//右边递归
+            }
+            sort(arr);
+            console.log('quickSort', count)
+            return arr;
+        }
+        console.log(quickSort([3, 2, 5, 7, 4, 9, 6, 1]))
+        /**
+             * 堆排序（heapSort）
+                *step1:建堆，序列分成无序和有序两组（初始有序为0）
+                *step2:取出堆顶最大的元素，与待排序列的最后一个元素作交换，至此，无序组--，有序组++，并对无序组进行堆调整
+                *
+                */
+        function heapSort(arr) {
+            let count = 0;
+            let len = 0;
+            const swap = (arr, i, j) => {//交换
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            const buildMaxHeap = (arr) => { // 建立大顶堆
+                len = arr.length;
+                for (var i = Math.floor(len / 2); i >= 0; i--) {
+                    heapify(arr, i);
+                }
+            }
+            const heapify = (arr, i) => { // 堆调整
+                var left = 2 * i + 1,
+                    right = 2 * i + 2,
+                    largest = i;
+
+                if (left < len && arr[left] > arr[largest]) {
+                    largest = left;
+                }
+
+                if (right < len && arr[right] > arr[largest]) {
+                    largest = right;
+                }
+
+                if (largest != i) {
+                    swap(arr, i, largest);
+                    heapify(arr, largest);
+                }
+                count++;
+            }
+
+            buildMaxHeap(arr);
+
+            for (let i = arr.length - 1; i > 0; i--) {
+                swap(arr, 0, i);
+                len--;
+                heapify(arr, 0);
+
+            }
+            console.log('heapSort', count)
+            return arr;
+        }
+        console.log(heapSort([3, 2, 5, 7, 4, 9, 6, 1]))
+    </script>
+</body>
+
+</html>

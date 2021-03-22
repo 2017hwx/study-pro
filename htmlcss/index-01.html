@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>html基础</title>
+</head>
+
+<body>
+    <p>元素定位</p>
+    <p style="top:10px;">staic默认，top、left、z-index等无效</p>
+    <p style="position: relative;top:100px;z-index: 100;">relative相对定位，自身为基准，不脱离文档流</p>
+    <div>
+        <p style="position:absolute;top:100px;z-index: 101;">absolute相对定位，父级为基准，脱离文档流</p>
+    </div>
+    <p style="position: fixed;top:300px;z-index: 102;">fixed相对定位，窗口为基准，脱离文档流</p>
+    
+</body>
+
+</html>

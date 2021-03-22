@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function checkDuplicate(arr = []) { 
+            let len =arr.length;
+            if(len===0){
+                return false;
+            }
+            if(len===1){
+                return true;
+            }
+            let map={}
+            for (let i = 0; i < len; i++) {
+                if(map[arr[i]]){
+                    map[arr[i]].c++;
+                }else{
+                    map[arr[i]]={c:1};
+                }              
+            }
+            console.log(map)
+            let set=new Set()
+            let keys=Object.keys(map)
+            keys.forEach(key=>{
+                set.add(map[key].c)
+            })
+            let newset=Array.from(set)
+            console.log(newset)
+            if(keys.length===newset.length){
+                return true
+            }else{
+                return false;
+            }
+        } 
+        console.log(checkDuplicate([1,2,2,3,3,3]))
+        console.log(checkDuplicate([1,2,2,3,3,3,2]))
+    </script>
+</body>
+</html>
