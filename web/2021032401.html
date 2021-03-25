@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+
+<body>
+  <pre>
+    [在主框架下引入的iframe，如果检测这个iframe是否能打开，如果打不开则跳到404页面](https://github.com/haizlin/fe-interview/issues/2616)
+  </pre>
+  <pre>
+    思路：
+    1、iframe 有onload不管成不成功都执行，
+    2、不跨域，ajax请求，元素验证
+    3、跨域，jsonp、cors
+    4、可跨域标签img、script、link、video、audio，
+    5、前三个有onload、onerror，但img会判断是否图片，script一般会预防xxs
+    6、link，onload、onerror
+  </pre>
+  <iframe src="https://www.baidu.com" frameborder="0" onload="callback()"></iframe>
+  <script>
+    function callback() {
+      console.log(`iframe is ok`)
+    }
+    function linkCallback(){
+      var linkDom=document.createElement('link');
+      linkDom.rel="stylesheet";
+      linkDom.href="https://www.baidu.com"
+      linkDom.onload=function (){
+        console.log(`link is ok`)
+      }
+      linkDom.onerror=function (){
+        console.log(`link is error`)
+      }
+      document.body.appendChild(linkDom)
+    }
+    linkCallback()
+  </script>
+</body>
+
+</html>
