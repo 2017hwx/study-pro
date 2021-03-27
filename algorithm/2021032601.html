@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <pre>
+        564. 寻找最近的回文数
+        给定一个整数 n ，你需要找到与它最近的回文数（不包括自身）。
+        “最近的”定义为两个整数差的绝对值最小。
+        示例 1:
+        输入: "123"
+        输出: "121"
+    </pre>
+    <script>
+        /**
+        * @param {string} n
+        * @return {string}
+         */
+        var nearestPalindromic = function (n) {
+            if (!n || n.length === 1) {
+                return n;
+            }
+            const len = n.length;
+            if (len % 2 === 0) {
+                let slen = len / 2;
+                let start=n.slice(0,slen);
+                let startNum=parseInt(start);
+                let startNumMin=startNum-1;
+                let startNumMax=startNum+1;
+                let 
+            } else {
+
+            }
+        };
+    </script>
+</body>
+
+</html>

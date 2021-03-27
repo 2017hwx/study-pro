@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <pre>
+        19. 删除链表的倒数第 N 个结点
+        给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+
+        进阶：你能尝试使用一趟扫描实现吗？
+    </pre>
+    <script>
+        function ListNode(val = 0, next = null) {
+            this.val = val;
+            this.next = next;
+        }
+        function list2node(arr = []) {
+            let nodes = [];
+            for (let i = 0; i < arr.length; i++) {
+                let node = new ListNode(arr[i])
+                nodes.push(node);
+                if (i > 0) {
+                    nodes[i - 1].next = nodes[i];
+                }
+            }
+            return nodes[0];
+        }
+        const head = list2node([1,2])
+
+        var removeNthFromEnd = function (head, n) {
+            let headArr = [];
+            let index = 0;
+            while (head) {
+                headArr.push(new ListNode(head.val));
+                head = head.next;
+                if (index > 0) {
+                    headArr[index - 1].next = headArr[index];
+                }
+                index++;
+            }
+            let len = headArr.length;
+            if (len === 1) {
+                return null;
+            }
+            if (n === len) {
+                headArr[0] = headArr[1];
+            } else if (n === 1) {
+                headArr[len - n - 1].next = null;
+            } else {
+                headArr[len - n - 1].next = headArr[headArr.length - n + 1];
+            }
+            return headArr[0];
+        };
+        removeNthFromEnd(head, 1)
+    </script>
+</body>
+
+</html>
