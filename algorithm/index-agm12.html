@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <pre>
+        leetcode
+        456. 132 模式
+        给你一个整数数组 nums ，数组中共有 n 个整数。132 模式的子序列 由三个整数 nums[i]、nums[j] 和 nums[k] 组成，
+        并同时满足：i < j < k 和 nums[i] < nums[k] < nums[j] 。
+        如果 nums 中存在 132 模式的子序列 ，返回 true ；否则，返回 false 。
+        进阶：很容易想到时间复杂度为 O(n^2) 的解决方案，你可以设计一个时间复杂度为 O(n logn) 或 O(n) 的解决方案吗？
+    </pre>
+    <script>
+        var find132pattern = function (nums) {
+            const len = nums.length;
+            if (len < 3) {
+                return false;
+            }
+            let max = 1;
+            for (let index = 2; index < len - 2; index++) {
+                if (nums[max] < nums[index]) {
+                    max = index;
+                }
+            }
+            let last = 0;//结尾
+            let mid = len - 1;
+            let max = mid - 1;
+            for (let index = len - 3; index >= 0; index--) {
+                if (nums[max] <= nums[mid]) {
+                    max = index;
+                    if (nums[mid])
+                        mid = index + 1;
+                    continue;
+                }
+                if (nums[index] < nums[mid]) {
+                    return true;
+                } else if (nums[index] > nums[max]) {
+                    mid = max;
+                    max = index;
+                }
+            }
+            return false;
+        };
+        find132pattern([4, 6, 1, 1, 5])
+    </script>
+</body>
+
+</html>

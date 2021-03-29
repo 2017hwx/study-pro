@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <pre>
+        61. 旋转链表
+        给你一个链表的头节点 head ，旋转链表，将链表每个节点向右移动 k 个位置。
+    </pre>
+    <script>
+        function ListNode(val = 0, next = null) {
+            this.val = val;
+            this.next = next;
+        }
+        function list2node(arr = []) {
+            let nodes = [];
+            for (let i = 0; i < arr.length; i++) {
+                let node = new ListNode(arr[i])
+                nodes.push(node);
+                if (i > 0) {
+                    nodes[i - 1].next = nodes[i];
+                }
+            }
+            return nodes[0];
+        }
+        const head = list2node([1, 2, 3, 4, 5])
+        /**
+         * @param {ListNode} head
+         * @param {number} k
+         * @return {ListNode}
+         */
+        var rotateRight = function (head, k) {
+            if (k < 1 || !head) {
+                return head;
+            }
+            let headArr = [];
+            while (head) {
+                headArr.push(new ListNode(head.val))
+                head = head.next;
+            }
+            let len = headArr.length;
+            if (len === 1) {
+                return headArr[0];
+            }
+            k = len - k % len;
+            k = len === k ? 0 : k;
+            for (let i = 1; i < len; i++) {
+                if (i === k) {
+                    headArr[len - 1].next = headArr[0];
+                } else {
+                    headArr[i - 1].next = headArr[i];
+                }
+            }
+            if (len === k) {
+                return headArr[0];
+            }
+            return headArr[k];
+        };
+
+        rotateRight(head, 3);
+    </script>
+</body>
+
+</html>
