@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../util.js"></script>
+</head>
+
+<body>
+  <pre>
+    82. 删除排序链表中的重复元素 II
+    存在一个按升序排列的链表，给你这个链表的头节点 head ，请你删除链表中所有存在数字重复情况的节点，只保留原始链表中 没有重复出现 的数字。
+    返回同样按升序排列的结果链表。
+    [1,1,1,2,3]=>[2,3]
+
+    83. 删除排序链表中的重复元素
+    存在一个按升序排列的链表，给你这个链表的头节点 head ，请你删除所有重复的元素，使每个元素 只出现一次 。
+    返回同样按升序排列的结果链表。
+  </pre>
+  <script>
+    const util = new NodeListUtil();
+    const params = util.list2node([1,2,3,3,4,4,5])
+    console.log(params)
+    //console.log(util.node2list(util.list2node([1, 2, 3, 4])))
+    /**
+     * @param {ListNode} head
+     * @return {ListNode}
+     */
+    const deleteDuplicates = function (head) {
+      let headArr = [];
+      let set = new Set();
+      let i = 0;
+      while (head !== null) {
+        if (set.has(head.val) ||(head.next != null && head.next.val === head.val)) {
+          set.add(head.val);
+        } else {        
+          headArr.push(new NodeList(head.val))
+          if (i > 0) {
+            headArr[i - 1].next = headArr[i]
+          }
+          i++
+        }
+        head = head.next;
+      }
+      return headArr.length===0?head:headArr[0];
+    };
+    //console.log(deleteDuplicates(params))
+    const deleteDuplicates1 = function (head) {
+      let headArr = [];
+      let i = 0;
+      while (head !== null) {
+        if (head.next === null || head.next.val !== head.val) {    
+          headArr.push(new NodeList(head.val))
+          if (i > 0) {
+            headArr[i - 1].next = headArr[i]
+          }
+          i++
+        }
+        head = head.next;
+      }
+      return headArr.length===0?head:headArr[0];
+    };
+    console.log(deleteDuplicates1(params))
+  </script>
+</body>
+
+</html>
