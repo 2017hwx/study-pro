@@ -46,31 +46,57 @@ operations[i][0] = 3: 代表第三种操作，operations[i][1]代表成员的编
         */
         var bonus = function (n, leadership, operations) {
             const map = {};
+            const parentmap = {};
             for (let i = 0; i < leadership.length; i++) {
                 let [a, b] = leadership[i];
+                parentmap[b] = a;
                 if (map[a]) {
                     map[a].next.push(b);
                 } else {
-                    map[a] = { val: 0, next: [b] };
+                    map[a] = { val: 0, allAdd: 0, next: [b] };
                 }
                 if (!map[b]) {
-                    map[b] = { val: 0, next: [] };
+                    map[b] = { val: 0, allAdd: 0, next: [] };
                 }
             }
             const add = (key, val) => {
                 map[key].val += val;
             }
             const addLine = (key, val) => {
-                add(key, val);
+                map[key].allAdd += val;
+            }
+
+            const totalUp = (key, arr = []) => {
+                let parentKey = parentmap[key];
+                if (parentKey) {
+                    if (map[parentKey].allAdd > 0) {
+                        arr.push(map[parentKey].allAdd);
+                    }
+                    totalUp(parentKey, arr);
+                }
+            }
+            const totalDown = (key, allAdd = 0, arr = []) => {
+                allAdd += map[key].allAdd;
+                arr.push(map[key].val + allAdd);
                 map[key].next.forEach(element => {
-                    addLine(element, val);
+                    totalDown(element, allAdd, arr);
                 });
             }
-            const getLine = (key, arr = []) => {
-                arr.push(map[key].val);
-                map[key].next.forEach(element => {
-                    getLine(element, arr);
-                });
+
+            const getLine = (key) => {
+                let allAddArr = []
+                totalUp(key, allAddArr);
+                let sum = 0;
+                allAddArr.forEach(val => {
+                    sum += val;
+                })
+                let resArr = []
+                totalDown(key, sum, resArr)
+                let ressum = 0;
+                resArr.forEach(val => {
+                    ressum += val;
+                })
+                return ressum;
             }
             let resArr = [];
             for (let i = 0; i < operations.length; i++) {
@@ -79,13 +105,7 @@ operations[i][0] = 3: 代表第三种操作，operations[i][1]代表成员的编
                 } else if (operations[i][0] === 2) {
                     addLine(operations[i][1], operations[i][2])
                 } else {
-                    let curArr = [];
-                    getLine(operations[i][1], curArr);
-                    let sum = 0;
-                    curArr.forEach(val => {
-                        sum += val;
-                    })
-                    resArr.push(sum);
+                    resArr.push(getLine(operations[i][1]));
                 }
             }
             return resArr;
