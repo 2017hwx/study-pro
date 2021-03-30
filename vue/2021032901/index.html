@@ -6,46 +6,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="./myvue.js"></script>
 </head>
 
 <body>
     <pre>
-        Vue针对数组和双向绑定(MVVM)的处理方式
+        Vue双向绑定原理实现以及测试
     </pre>
+    <div id="app">
+        <input type="text" v-model="text">
+        <span>{{text}}</span>
+    </div>
     <script>
-        const override = ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'];
-        //来copy一份数组的原型方法,防止污染原生数组方法
-        const arrayProto = Array.prototype;
-        const arrayMethods = Object.create(arrayProto);
-        //劫持方法,并监控
-        override.forEach(fnName => {
-            Object.defineProperty(arrayMethods, fnName, {
-                value: function () {
-                    const original = arrayProto[fnName];
-                    let args = Array.from(arguments);
-                    original.apply(this, args)
-                }
-            })
+        const vm = new Vue({
+            el: 'app',
+            data: {
+                text: 'hello world'
+            }
         })
+     
+        // const override = ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'];
+        // //来copy一份数组的原型方法,防止污染原生数组方法
+        // const arrayProto = Array.prototype;
+        // const arrayMethods = Object.create(arrayProto);
+        // //劫持方法,并监控
+        // override.forEach(fnName => {
+        //     Object.defineProperty(arrayMethods, fnName, {
+        //         value: function () {
+        //             const original = arrayProto[fnName];
+        //             let args = Array.from(arguments);
+        //             original.apply(this, args)
+        //         }
+        //     })
+        // })
 
-        const mointorArray = (obj) => {
-            override.forEach(fnName => {
-                Object.defineProperty(obj, fnName, {
-                    value: function () {
-                        const original = arrayMethods[fnName];
-                        let args = Array.from(arguments);
-                        original.apply(this, args)
-                    }
-                })
-            })
-        }
-        const testArr = [];
-        if (Array.isArray(testArr)) {
-            mointorArray(testArr)
-        }
-        testArr.push(1)
-        testArr.push(2)
-        testArr.unshift(0)
+        // const mointorArray = (obj) => {
+        //     override.forEach(fnName => {
+        //         Object.defineProperty(obj, fnName, {
+        //             value: function () {
+        //                 const original = arrayMethods[fnName];
+        //                 let args = Array.from(arguments);
+        //                 original.apply(this, args)
+        //             }
+        //         })
+        //     })
+        // }
+        // const testArr = [];
+        // if (Array.isArray(testArr)) {
+        //     mointorArray(testArr)
+        // }
+        // testArr.push(1)
+        // testArr.push(2)
+        // testArr.unshift(0)
         //实现Vue的数据双向绑定有3大核心：Observer,Dep,Watcher,来个简单实现
     </script>
 </body>
