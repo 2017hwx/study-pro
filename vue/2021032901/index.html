@@ -16,15 +16,35 @@
     <div id="app">
         <input type="text" v-model="text">
         <span>{{text}}</span>
+        <button v-on:click="clickMe">click me!</button>
+
+        <input type="text" v-model="testObj.test1">
+        <span>{{testObj.test1}}</span>
+
     </div>
     <script>
-        const vm = new Vue({
+        const vm = new SelfVue({
             el: 'app',
             data: {
-                text: 'hello world'
+                text: 'hello world',
+                testObj: {
+                    test1: 'test is 1'
+                }
+            },
+            methods: {
+                clickMe: function () {
+                    this.text = 'hello world is button';
+                    this.testObj.test1='1'
+                    this.testObj={}
+                }
+            },
+            mounted: function () {
+                window.setTimeout(() => {
+                    this.text = '你好';
+                }, 1000);
             }
         })
-     
+
         // const override = ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'];
         // //来copy一份数组的原型方法,防止污染原生数组方法
         // const arrayProto = Array.prototype;
