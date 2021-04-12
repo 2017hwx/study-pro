@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>
+    179. 最大数
+    给定一组非负整数 nums，重新排列每个数的顺序（每个数不可拆分）使之组成一个最大的整数。
+    注意：输出结果可能非常大，所以你需要返回一个字符串而不是整数
+  </pre>
+  <script>
+    /**
+     * @param {number[]} nums
+     * @return {string}
+     */
+    var largestNumber = function (nums) {
+      const len = nums.length;
+      if (len === 1) {
+        return nums[0].toString();
+      }
+      for (let i = 0; i < len; i++) {
+        for (let j = i + 1; j < len; j++) {
+          if (parseInt(nums[i].toString() + nums[j].toString()) > parseInt(nums[j].toString() + nums[i].toString())) {
+            let temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+          }
+        }
+      }
+      while (nums.length > 1 && nums[nums.length - 1] === 0) {
+        nums.pop()
+      }
+      let res = ''
+      for (let i = len - 1; i >= 0; i--) {
+        res += nums[i]
+      }
+      return res
+    };
+  </script>
+</body>
+
+</html>
