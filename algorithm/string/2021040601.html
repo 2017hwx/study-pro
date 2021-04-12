@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>
+    1143. 最长公共子序列
+    给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0 。
+    一个字符串的 子序列 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。
+
+    例如，"ace" 是 "abcde" 的子序列，但 "aec" 不是 "abcde" 的子序列。
+    两个字符串的 公共子序列 是这两个字符串所共同拥有的子序列。
+  </pre>
+  <script>
+    /**
+     * @param {string} text1
+     * @param {string} text2
+     * @return {number}
+     */
+    var longestCommonSubsequence = function (text1, text2) {
+      const len = text1.length;
+      let count = 0;
+      let str = text2;
+      for (let i = 0; i < len; i++) {
+        let arr = str.split(text1.charAt(i));
+        if (arr.length > 1) {
+          str = arr[1];
+          count++;
+        }
+      }
+      let count1 = 0;
+      let str1 = text2;
+      for (let i = len - 1; i >= 0; i--) {
+        let arr = str1.split(text1.charAt(i));
+        if (arr.length > 1) {
+          str1 = arr[0];
+          count1++;
+        }
+      }
+      return Math.max(count, count1);
+    };
+    longestCommonSubsequence("oxcpqrsvwf","shmtulqrypy")
+  </script>
+</body>
+
+</html>
