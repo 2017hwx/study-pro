@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <pre>
+        5. 最长回文子串
+        给你一个字符串 s，找到 s 中最长的回文子串。
+        回文五种思路：
+        中心法，分奇偶
+        公共子字符串，反转比较
+        动态规划等
+    </pre>
+    <script>
+        /**
+         * @param {string} s
+         * @return {string}
+         */
+        var longestPalindrome = function (s) {
+            debugger
+            const len = s.length;
+            const arr = str.split('');
+            const revArr = arr.reverse();
+            for (let i = 0; i < len; i++) {
+                for (let j = 0; j < len; j++) {
+                    if ()
+                }
+            }
+            return s.slice(0, 1);
+        };
+        function checkSome(str, left, right) {
+            let len = str.length;
+            let k = 0;
+            while (left >= 0 && right < len) {
+                if (str.charAt(left) === str.charAt(right)) {
+                    left--;
+                    right++;
+                    k++;
+                } else {
+                    break
+                }
+            }
+            return k;
+        }
+        longestPalindrome('babad')
+    </script>
+</body>
+
+</html>
