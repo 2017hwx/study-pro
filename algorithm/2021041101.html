@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <pre>
+        264. 丑数 II
+        给你一个整数 n ，请你找出并返回第 n 个 丑数 。
+        丑数 就是只包含质因数 2、3 和/或 5 的正整数。
+    </pre>
+    <script>
+        /**
+        * @param {number} n
+        * @return {number}
+        */
+        var nthUglyNumber = function (n) {
+            if (n === 1) {
+                return 1;
+            }
+            let arr = [1];
+            let [a, b, c] = [0, 0, 0]
+            for (let i = 1; i < n; i++) {
+                let x = 2 * arr[a];
+                let y = 3 * arr[b];
+                let z = 5 * arr[c];
+                arr[i] = Math.min(Math.min(x, y), z)
+                if(arr[i]===x){
+                    a++;
+                }
+                if(arr[i]===y){
+                    b++;
+                }
+                if(arr[i]===z){
+                    c++;
+                }
+            }
+            return arr[arr.length-1]
+        };
+        nthUglyNumber(30)
+    </script>
+</body>
+
+</html>
