@@ -25,28 +25,31 @@
         var longestPalindrome = function (s) {
             debugger
             const len = s.length;
-            const arr = str.split('');
-            const revArr = arr.reverse();
-            for (let i = 0; i < len; i++) {
-                for (let j = 0; j < len; j++) {
-                    if ()
-                }
+            const mid = Math.floor(len / 2);
+            let maxStr = s.charAt(0);
+            for (let i = 1; i < len; i++) {
+                let str1 = checkSome(s, i, i + 1, '') //偶数
+                let str2 = checkSome(s, i - 1, i + 1, s.charAt(i)) //奇数
+                let str = str1.length > str2.length ? str1 : str2;
+                maxStr = maxStr.length > str.length ? maxStr : str;
             }
-            return s.slice(0, 1);
+            return maxStr
+
         };
-        function checkSome(str, left, right) {
+
+        function checkSome(str, left, right, res) {
             let len = str.length;
-            let k = 0;
             while (left >= 0 && right < len) {
-                if (str.charAt(left) === str.charAt(right)) {
+                let leftStr = str.charAt(left);
+                if (leftStr === str.charAt(right)) {
                     left--;
                     right++;
-                    k++;
+                    res = leftStr + res + leftStr
                 } else {
                     break
                 }
             }
-            return k;
+            return res;
         }
         longestPalindrome('babad')
     </script>
