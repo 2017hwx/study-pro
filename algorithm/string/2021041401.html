@@ -20,34 +20,55 @@
     </pre>
     <script>
         /**
- * @param {string} s
- * @param {number} numRows
- * @return {string}
- */
+         * @param {string} s
+         * @param {number} numRows
+         * @return {string}
+         */
         var convert = function (s, numRows) {
             if (numRows === 1) {
                 return s;
             }
+            let resArr = []
             let arr = s.split('');
-
-        };
-        function zStrToArr(initArr, start, numRows,) {
-            let arr = []
-            let maxlen = 2 * numRows - 2;
-            let y = numRows - 1;
-            for (let j = 0; j < y; j++) {
-                for (let i = 0; i < numRows; i++) {
-                    if (j === 0) {
-                        arr[j][i]=initArr[i];
-                        arr[j][y-1]=initArr[i]
-                    }else{
-
+            let splitLen = 2 * numRows - 2;
+            let start = 0;
+            while (arr.length  > start) {
+                resArr = resArr.concat(zStrToArr(arr, numRows, start))
+                start += splitLen;
+            }
+            let resStr = ''
+            let y = resArr.length;
+            for (let i = 0; i < numRows; i++) {
+                for (let j = 0; j < y; j++) {
+                    if (resArr[j][i]) {
+                        resStr += resArr[j][i]
                     }
                 }
+            }
+            return resStr
+        };
 
+        function zStrToArr(initArr, numRows, start) {
+            let arr = []
+            let maxlen = Math.min(2 * numRows - 2, initArr.length-start);
+            let j = 1;
+            for (let k = 0; k < maxlen; k++) {
+                if (k < numRows) {
+                    if (!arr[0]) {
+                        arr[0] = []
+                    }
+                    arr[0][k] = initArr[start + k];
+                } else {
+                    if (!arr[j]) {
+                        arr[j] = []
+                    }
+                    arr[j][numRows - j - 1] = initArr[start + k];
+                    j++;
+                }
             }
             return arr;
         }
+        //convert("ABC", 2)
     </script>
 </body>
 

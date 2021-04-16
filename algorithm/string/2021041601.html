@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <pre>
+    87. 扰乱字符串
+    使用下面描述的算法可以扰乱字符串 s 得到字符串 t ：
+    如果字符串的长度为 1 ，算法停止
+    如果字符串的长度 > 1 ，执行下述步骤：
+    在一个随机下标处将字符串分割成两个非空的子字符串。即，如果已知字符串 s ，则可以将其分成两个子字符串 x 和 y ，且满足 s = x + y 。
+    随机 决定是要「交换两个子字符串」还是要「保持这两个子字符串的顺序不变」。即，在执行这一步骤之后，s 可能是 s = x + y 或者 s = y + x 。
+    在 x 和 y 这两个子字符串上继续从步骤 1 开始递归执行此算法。
+    给你两个 长度相等 的字符串 s1 和 s2，判断 s2 是否是 s1 的扰乱字符串。如果是，返回 true ；否则，返回 false 。
+  </pre>
+  <script>
+    /**
+     * @param {string} s1
+     * @param {string} s2
+     * @return {boolean}
+     */
+    var isScramble = function (s1, s2) {
+      debugger
+      let map = {}
+      let arr1 = s1.split('');
+      for (let index = 0; index < arr1.length; index++) {
+        if (!map[arr1[index]]) {
+          map[arr1[index]] = []
+        }
+        map[arr1[index]].push(index);
+      }
+      let arr2 = s2.split('');
+      let resArr = arr2.map(element => {
+        return map[element][map[element].length - 1]
+      })
+      return exsitMid(resArr)
+    };
+
+    function exsitMid(array) {
+      let len = array.length;
+      if (len === 1 || len === 2) {
+        return true
+      }
+      let min = array[0];
+      let m=0;
+      for (let i = 1; i < len; i++) {
+        if (array[i] > min) {
+          m++
+          if (array[i] !== min + m) {
+            return false
+          }
+        } else {
+          min = array[i]
+          m=0;
+        }
+      }
+      return true
+    }
+    isScramble("great","rgeat")
+  </script>
+</body>
+
+</html>
