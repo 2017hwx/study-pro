@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <pre>
+        633. 平方数之和
+        a2+b2=c
+    </pre>
+    <script>
+        /**
+        * @param {number} c
+        * @return {boolean}
+        */
+        var judgeSquareSum = function (c) {
+            let n = Math.floor(Math.sqrt(c));
+            let i = 0;
+            let j = n;
+            while (i <= j) {
+                let a = Math.pow(i, 2);
+                let b = Math.pow(j, 2);
+                if (a + b > c) {
+                    j--;
+                } else if (a + b < c) {
+                    i++;
+                } else {
+                    return true
+                }
+            }
+            return false;
+        };
+        judgeSquareSum(2147483641)
+    </script>
+</body>
+
+</html>
