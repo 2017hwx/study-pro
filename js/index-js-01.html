@@ -10,22 +10,50 @@
 </head>
 
 <body>
+   
     <script>
+        // function main(stack) {
 
-        function main(stack) {
-            
-            for (let index = 0; index < 100; index++) {
-                stack.push(index)
-            }
-            debugger
+        //     for (let index = 0; index < 100; index++) {
+        //         stack.push(index)
+        //     }
+        //     debugger
+        // }
+        // debugger
+        // const stack1 = new Stack1();
+        // const stack2 = new Stack();
+        // const stack3 = new Stack2();
+        // main(stack1)
+        // main(stack2)
+        // main(stack3)
+        function before(res) {
+            console.log(res)
+            return new Promise((resolve) => {
+                resolve(res)
+            })
         }
-        debugger
-        const stack1 = new Stack1();
-        const stack2 = new Stack();
-        const stack3 = new Stack2();
-        main(stack1)
-        main(stack2)
-        main(stack3)
+        const aa = new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    a: 1
+                })
+            }, 1);
+        })
+        aa.then(before).then(res => {
+            console.log(res)
+        })
+        // aa.then(res=>{
+        //     console.log(res)
+        // }).then(res=>{
+        //     console.log(res)
+        // })
+
+        let map={a:1,b:2}
+       Object.keys(map)
+ 
+        for(let k in map.values()){
+            console.log(k)
+        }
     </script>
 </body>
 
