@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Video step2</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+    <object id="flowplayer" width="400" height="300" data="flowplayer-3.2.18.swf" type="application/x-shockwave-flash">
+        <param name="movie" value="flowplayer-3.2.18.swf">
+        <param name="flashvars" value='config={"clip":"http://www.w3cschool.cc/try/demo_source/mov_bbb.mp4"}'>
+        <video id="myVideo" controls preload="auto" width=300 height="165"
+            poster="http://img0.ph.126.net/I10JqUUJDmlEtE_XYl4hOg==/6608842237655242020.jpg"></video>
+    </object>
+
+    <script>
+
+        var myVideo = document.getElementById('myVideo');//获取video元素
+        myVideo.src = "http://www.w3cschool.cc/try/demo_source/mov_bbb.mp4"
+
+
+        myVideo.addEventListener("canplaythrough",
+            function () {
+                alert('音频文件已经准备好，随时待命');
+            },
+            false);
+        myVideo.addEventListener("timeupdate", showtime, true);
+        myVideo.addEventListener("volumechange", function () {
+            document.getElementById("volume").innerHTML = myVideo.volume;
+        }, true);
+
+        function showtime() {
+            document.getElementById("ltime").innerHTML = myVideo.duration;
+            document.getElementById("ctime").innerHTML = myVideo.currentTime;
+        }
+        function aPlay() {
+            myVideo.play();
+        }
+        function pPlay() {
+            myVideo.pause()
+        }
+        function go() {
+            myVideo.currentTime += 10;
+            myVideo.play();
+        }
+        function back() {
+            myVideo.currentTime -= 10;
+            myVideo.play();
+        }
+        function upVol() {
+            myVideo.volume += 0.1;
+            //myVideo.play();
+        }
+        function downVol() {
+            myVideo.volume -= 0.1;
+            //myVideo.play();
+        }
+    </script>
+    <br />
+    总时长：
+    <div id="ltime">
+    </div>
+    <br />
+    当前播放：
+    <div id="ctime">
+    </div>
+    <br />
+    当前音量：
+    <div id="volume">
+    </div>
+    <br />
+    <input type="button" onclick="aPlay();" value="播放音频">
+    <input type="button" onclick="pPlay();" value="暂停音频">
+    <input type="button" onclick="upVol();" value="音量+">
+    <input type="button" onclick="downVol();" value="音量-">
+    <input type="button" onclick="go();" value="快进10秒">
+    <input type="button" onclick="back();" value="快退10秒">
+
+</body>
+
+</html>

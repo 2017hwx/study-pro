@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas1" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas2" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas3" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas4" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas5" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas6" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas7" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas8" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas9" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas10" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <input type="button" onclick="save()" value="保存">
+    <input type="button" onclick="restore()" value="还原">
+    <canvas id="canvas11" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas12" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas13" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <input type="button" onclick="compostionOperation(this.value)" value="source-over">
+    <input type="button" onclick="compostionOperation(this.value)" value="source-out">
+    <input type="button" onclick="compostionOperation(this.value)" value="source-in">
+    <input type="button" onclick="compostionOperation(this.value)" value="source-atop">
+    <input type="button" onclick="compostionOperation(this.value)" value="destination-over">
+    <input type="button" onclick="compostionOperation(this.value)" value="destination-out">
+    <input type="button" onclick="compostionOperation(this.value)" value="destination-in">
+    <input type="button" onclick="compostionOperation(this.value)" value="destination-atop">
+    <input type="button" onclick="compostionOperation(this.value)" value="lighter">
+    <input type="button" onclick="compostionOperation(this.value)" value="darken">
+    <input type="button" onclick="compostionOperation(this.value)" value="lighten">
+    <input type="button" onclick="compostionOperation(this.value)" value="xor">
+    <input type="button" onclick="compostionOperation(this.value)" value="copy">
+    <canvas id="canvas14" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas15" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas16" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <script>
+        function draw(id) {
+            var myCanvas = document.getElementById(id)
+            if (!myCanvas.getContext) return;
+            return myCanvas.getContext('2d')
+        }
+
+        var cxt1 = draw("canvas1")
+        //cxt1.beginPath()//闭合路径
+        cxt1.moveTo(10, 10);//笔画带指定坐标x，y
+        cxt1.lineTo(150, 50);//当前坐标x，y到（150，50）的直线
+        cxt1.lineTo(10, 50);
+        cxt1.lineWidth = 10;//线宽,上下各占一半
+        //cxt1.closePath()
+        cxt1.stroke()//绘制轮廓,描边
+
+        var cxt2 = draw("canvas2")
+        let grd = cxt2.createLinearGradient(0, 20, 50, 30)
+        grd.addColorStop(0, 'red')
+        grd.addColorStop(1, 'blue')
+        cxt2.fillStyle = grd
+        cxt2.strokeStyle = "rgba(0, 200, 200, 0.5)"
+        cxt2.rect(50, 50, 50, 50)
+        //cxt2.fill()
+        cxt2.stroke()
+        cxt2.fillRect(10, 10, 55, 50)//填充矩形x，y,width,height
+        cxt2.clearRect(15, 15, 20, 20)//清除填充矩形
+        cxt2.strokeRect(5, 5, 100, 100)//边框矩形x，y,width,height
+
+        var cxt3 = draw("canvas3")
+        cxt3.beginPath()
+        cxt3.moveTo(50, 50);
+        cxt3.lineTo(200, 200)
+        cxt3.lineTo(200, 50)
+        cxt3.closePath()
+        cxt3.fillStyle = "rgba(0, 0, 200, 0.5)"
+        cxt3.fill(); //填充闭合区域。如果path没有闭合，则fill()会自动闭合路径。
+
+        var cxt4 = draw("canvas4")
+        //闭合，描边 
+        cxt4.beginPath()
+        cxt4.arc(50, 50, 40, 0, Math.PI / 2, false)//圆心x,y，半径r,起点弧度，重点弧度，逆时针true
+        cxt4.closePath()
+        cxt4.stroke()
+        //未闭合，描边 
+        cxt4.beginPath()
+        cxt4.arc(100, 50, 40, 0, Math.PI / 2, false)
+        cxt4.stroke()
+        //填充，自动闭合 
+        cxt4.beginPath()
+        cxt4.arc(150, 150, 40, 0, Math.PI / 2, true)
+        let grd4 = cxt4.createRadialGradient(150, 150, 50, 200, 200, 50)
+        grd4.addColorStop(0, 'red')
+        grd4.addColorStop(1, 'blue')
+        cxt4.fillStyle = grd4
+        cxt4.fill()
+
+        var ctx5 = draw("canvas5")
+        ctx5.beginPath();
+        ctx5.moveTo(50, 50);
+        //参数1、2：控制点1坐标   参数3、4：控制点2坐标  参数4：圆弧半径
+        ctx5.arcTo(200, 50, 200, 200, 100);
+        ctx5.lineTo(200, 200)
+        ctx5.stroke();
+
+        ctx5.beginPath();
+        ctx5.rect(50, 50, 10, 10);
+        ctx5.rect(200, 50, 10, 10)
+        ctx5.rect(200, 200, 10, 10)
+        ctx5.fillStyle = "rgba(0, 0, 200, 0.5)"
+        ctx5.fill()
+
+        function BSE(id, pionts) {
+            var ctx6 = draw(id)
+            let len = pionts.length
+            let w = 10, h = 10;
+            ctx6.beginPath();
+            ctx6.moveTo(pionts[0][0], pionts[0][1]);
+            if (len === 3) {
+                ctx6.quadraticCurveTo(pionts[1][0], pionts[1][1], pionts[2][0], pionts[2][1])
+            } else {
+                ctx6.bezierCurveTo(pionts[1][0], pionts[1][1], pionts[2][0], pionts[2][1], pionts[3][0], pionts[3][1])
+            }
+            ctx6.stroke();
+
+            ctx6.beginPath();
+            ctx6.rect(pionts[0][0], pionts[0][1], w, h);
+            ctx6.rect(pionts[1][0], pionts[1][1], w, h)
+            ctx6.rect(pionts[2][0], pionts[2][1], w, h)
+            if (len === 4) {
+                ctx6.rect(pionts[3][0], pionts[3][1], w, h)
+            }
+            ctx6.fillStyle = "rgba(0, 0, 200, 0.5)"
+            ctx6.fill()
+        }
+        BSE("canvas6", [[10, 200], [40, 100], [200, 200]])
+        BSE("canvas7", [[40, 200], [20, 100], [100, 120], [200, 200]])
+
+        var ctx8 = document.getElementById('canvas8')
+        ctx8 = ctx8.getContext('2d')
+        ctx8.beginPath();
+        ctx8.font = '100px sans-serif'
+        ctx8.fillText('小味道', 10, 100)
+        ctx8.strokeText('小味道', 10, 200)
+
+        var canvas9 = document.getElementById('canvas9')
+        var ctx9 = canvas9.getContext('2d')
+        var img9 = new Image()
+        img9.src = '84133001.jpg'
+        img9.onload = function () {
+            ctx9.drawImage(img9, 0, 0, 300, 300, 150, 150, 100, 100)
+        }
+
+        var canvas10 = document.getElementById('canvas10');
+        var ctx10 = canvas10.getContext("2d");
+        function save() {
+            ctx10.save(); //保存坐原点平移之前的状态
+            ctx10.translate(100, 100);
+            ctx10.strokeRect(0, 0, 100, 100)
+        }
+        function restore() {
+            ctx10.restore(); //恢复到最初状态
+            ctx10.translate(220, 220);
+            ctx10.fillRect(0, 0, 100, 100)
+        }
+
+        var ctx11 = draw("canvas11")
+        ctx11.fillStyle = "red";
+        ctx11.save();
+
+        ctx11.translate(100, 100);
+        ctx11.rotate(Math.PI / 180 * 45);
+        ctx11.fillStyle = "blue";
+        ctx11.fillRect(0, 0, 100, 100);
+        ctx11.restore();
+
+        ctx11.save();
+        ctx11.translate(0, 0);
+        ctx11.fillRect(0, 0, 50, 50)
+        ctx11.restore();
+
+        var ctx12 = draw("canvas12")
+        ctx12.transform(1, 1, 0, 1, 10, 10);
+        ctx12.fillRect(0, 0, 100, 100);
+
+        var ctx13 = draw("canvas13")
+
+
+        function compostionOperation(val) {
+            ctx13.clearRect(0, 0, 300, 300)
+            ctx13.fillStyle = 'blue'
+            ctx13.fillRect(0, 0, 100, 100)
+            ctx13.globalCompositeOperation = val
+            ctx13.fillStyle = 'red'
+            ctx13.fillRect(50, 50, 100, 100)
+        }
+
+        var ctx14 = draw("canvas14")
+        ctx14.beginPath();
+        ctx14.arc(20, 20, 100, 0, Math.PI * 2);
+        //ctx14.strokeRect(20, 20, 50,50);
+        ctx14.clip();
+
+        ctx14.fillStyle = "pink";
+        ctx14.fillRect(20, 20, 100, 100);
+
+
+
+    </script>
+</body>
+
+</html>

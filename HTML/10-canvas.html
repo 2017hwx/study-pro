@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    canvas {
+        background-color: black;
+    }
+</style>
+
+<body>
+    <canvas id="canvas1" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <canvas id="canvas2" width="300" height="300">
+        你的浏览器不支持canvas,请升级你的浏览器
+    </canvas>
+    <script>
+        function draw(id) {
+            var myCanvas = document.getElementById(id)
+            if (!myCanvas.getContext) return;
+            return myCanvas.getContext('2d')
+        }
+
+        var ctx1 = draw("canvas1")
+        drawWatch(ctx1)
+        function drawWatch(ctx) {
+            requestAnimationFrame(function step() {
+                ctx.clearRect(0, 0, 300, 300)
+                drawDial(ctx); //绘制表盘
+                drawAllHands(ctx); //绘制时分秒针
+                requestAnimationFrame(step);
+            });
+        }
+
+        function drawDial(ctx) {
+            let pi = Math.PI;
+
+            ctx.save()
+            ctx.translate(150, 150)
+
+            ctx.beginPath()
+            ctx.arc(0, 0, 148, 0, 2 * pi)
+            ctx.stroke()
+            ctx.closePath()
+
+            for (let i = 0; i < 60; i++) {//绘制刻度。
+                ctx.save();
+                ctx.rotate(-pi / 2 + i * pi / 30);  //旋转坐标轴。坐标轴x的正方形从 向上开始算起
+                ctx.beginPath();
+                ctx.moveTo(110, 0);
+                ctx.lineTo(140, 0);
+                ctx.lineWidth = i % 5 ? 2 : 4;
+                ctx.strokeStyle = i % 5 ? "blue" : "red";
+                ctx.stroke();
+                ctx.closePath();
+                ctx.restore();
+            }
+            ctx.restore();
+
+        }
+        function drawAllHands(ctx) {
+
+            let time = new Date()
+            let s = time.getSeconds()
+            let m = time.getMinutes()
+            let h = time.getHours()
+            let pi = Math.PI;
+
+            let sAngle = pi / 180 * 6 * s;
+            let mAngle = pi / 180 * 6 * m + sAngle / 60;
+            let hAngle = pi / 180 * 30 * h + mAngle / 12;
+
+            drawHand(hAngle, 60, 6, "red", ctx);  //绘制时针
+            drawHand(mAngle, 106, 4, "green", ctx);  //绘制分针
+            drawHand(sAngle, 129, 2, "blue", ctx);  //绘制秒针
+
+        }
+        function drawHand(angle, len, width, color, ctx) {
+            ctx.save()
+            ctx.translate(150, 150)
+            ctx.rotate(-Math.PI / 2 + angle)
+            ctx.beginPath()
+            ctx.moveTo(-4, 0)
+            ctx.lineTo(len, 0)
+            ctx.lineWidth = width
+            ctx.strokeStyle = color
+            ctx.lineCap = 'round'
+            ctx.stroke()
+            ctx.closePath()
+            ctx.restore()
+        }
+
+        var ctx2 = draw("canvas2")
+
+        requestAnimationFrame(function sun() {
+            ctx2.clearRect(0, 0, 300, 300);
+            drawSun(ctx2)
+            requestAnimationFrame(sun)
+        })
+        function drawSun(ctx) {
+            let pi = Math.PI;
+            let time = new Date();
+            let s = time.getSeconds();
+            let sm = time.getMilliseconds()
+
+            ctx.save();
+            ctx.translate(150, 150);
+
+            ctx.save();
+            ctx.fillStyle = "orange"
+            ctx.fillRect(-15, -15, 30, 30)
+            ctx.restore()
+
+
+            //绘制earth轨道
+            ctx.beginPath();
+            //ctx.strokeStyle = "rgba(255,255,0,0.5)";
+            ctx.arc(0, 0, 100, 0, 2 * pi, true)
+            ctx.strokeStyle = "#fff"
+            ctx.stroke()
+            ctx.closePath();
+
+            //绘制地球
+            ctx.rotate(2 * pi / 60 * s + 2 * pi / 60000 * sm)
+            ctx.translate(100, 0);
+            ctx.save();
+            ctx.fillStyle = "blue"
+            ctx.fillRect(-10, -10, 20, 20)
+            ctx.restore()
+
+            //绘制月球轨道
+            ctx.beginPath();
+            //ctx.strokeStyle = "rgba(255,255,255,.3)";
+            ctx.arc(0, 0, 40, 0, 2 * pi, true);
+            ctx.stroke();
+            ctx.closePath();
+            //绘制月球
+            ctx.rotate(2 * pi / 6 * s + 2 * pi / 6000 * sm);
+            ctx.translate(40, 0);
+            ctx.save();
+            ctx.fillStyle = "green"
+            ctx.fillRect(-5, -5, 10, 10)
+            ctx.restore();
+
+            ctx.restore();
+        }
+    </script>
+</body>
+
+</html>

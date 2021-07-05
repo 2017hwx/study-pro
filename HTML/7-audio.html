@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Preload Ready</title>
+
+</head>
+
+<body>
+    <audio id="audio" autoplay controls></audio>
+    <script type="text/javascript">
+        var audio = document.getElementById("audio");
+        audio.src = "孙燕姿 - 遇见.mp3";
+
+        audio.addEventListener("canplaythrough",
+            function () {
+                alert('音频文件已经准备好，随时待命');
+            },
+            false);
+        audio.addEventListener("timeupdate", showtime, true);
+        audio.addEventListener("volumechange", function () {
+            document.getElementById("volume").innerHTML = audio.volume;
+        }, true);
+
+        function showtime() {
+            document.getElementById("ltime").innerHTML = audio.duration;
+            document.getElementById("ctime").innerHTML = audio.currentTime;
+        }
+        function aPlay() {
+            audio.play();
+        }
+        function pPlay() {
+            audio.pause()
+        }
+        function go() {
+            audio.currentTime += 10;
+            audio.play();
+        }
+        function back() {
+            audio.currentTime -= 10;
+            audio.play();
+        }
+        function upVol() {
+            audio.volume += 0.1;
+            //audio.play();
+        }
+        function downVol() {
+            audio.volume -= 0.1;
+            //audio.play();
+        }
+    </script>
+    <br />
+    总时长：
+    <div id="ltime">
+    </div>
+    <br />
+    当前播放：
+    <div id="ctime">
+    </div>
+    <br />
+    当前音量：
+    <div id="volume">
+    </div>
+    <br />
+    <input type="button" onclick="aPlay();" value="播放音频">
+    <input type="button" onclick="pPlay();" value="暂停音频">
+    <input type="button" onclick="upVol();" value="音量+">
+    <input type="button" onclick="downVol();" value="音量-">
+    <input type="button" onclick="go();" value="快进10秒">
+    <input type="button" onclick="back();" value="快退10秒">
+</body>
+
+</html>
