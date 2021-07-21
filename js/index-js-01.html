@@ -6,54 +6,101 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="./tool.js"></script>
+    <script src="./common.js"></script>
+    <script src="./arrayUtils.js"></script>
 </head>
 
 <body>
-   
+    <input type="button" value="aa" onclick="debouneClick('a','b','d')">
     <script>
-        // function main(stack) {
-
-        //     for (let index = 0; index < 100; index++) {
-        //         stack.push(index)
-        //     }
-        //     debugger
+        // class San {
+        //     constructor() { }
         // }
-        // debugger
-        // const stack1 = new Stack1();
-        // const stack2 = new Stack();
-        // const stack3 = new Stack2();
-        // main(stack1)
-        // main(stack2)
-        // main(stack3)
-        function before(res) {
-            console.log(res)
-            return new Promise((resolve) => {
-                resolve(res)
-            })
-        }
-        const aa = new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({
-                    a: 1
-                })
-            }, 1);
-        })
-        aa.then(before).then(res => {
-            console.log(res)
-        })
-        // aa.then(res=>{
-        //     console.log(res)
-        // }).then(res=>{
-        //     console.log(res)
+        // const debouneClick = deboune(test, 2000)
+        // function test(a, b, c) {
+        //     alert(a + b + c)
+        // }
+        // console.log([1, 2, [3, "4", [5, 6]]].hwx_flat())
+        // console.log([1, 2, 3, 4, 5].hwx_filter((el, i, array) => {
+        //     //console.log(el,i,array)
+        //     return el > 3
+        // }))
+        // let arr = [1, 2, 3, 4, 5]
+        // arr.length = 2
+        // console.log(arr.hwx_filter((el, i, array) => {
+        //     //console.log(el, i, array)
+        //     return el > 0
+        // }))
+        // console.log([1, 2, 3, 4, 5].hwx_map((el, index, array) => {
+        //     //console.log(el,index,array)
+        //     return el + '_jj'
+        // }))
+        // [1, 2, 3, 4, 8].hwx_foreach((el, index, array) => {
+        //     console.log(el, index, array)
         // })
+        // console.log([1, 2, 3, 4, 8].hwx_reduce((acc, cur, index, array) => {
+        //     console.log(acc, cur, index, array)
+        //     return acc + cur
+        // }))
+        function Class1(a1, a2, a3) {
+            this.a1 = a1
+            this.a2 = a2
+            this.a3 = a3
 
-        let map={a:1,b:2}
-       Object.keys(map)
- 
-        for(let k in map.values()){
-            console.log(k)
         }
+
+        function Class2(b2, b3) {
+            this.b2 = b2
+            this.b3 = b3
+
+        }
+        function Class3(name, name1) {
+            this.name = name
+            this.name1 = name1
+            this.showSub = function (a, b) {
+                console.log(a - b);
+            }
+        }
+
+        function Class4(age) {
+            this.age = age
+            this.showAdd = function (a, b) {
+                console.log(a + b);
+            }
+        }
+
+        function Class12() {
+            Class1.hwx_apply(this, ['a1', 'a2', 'a3']);
+            Class2.hwx_apply(this, ['a21', 'a32']);
+            Class3.hwx_call(this, 'name', '2222');
+            Class4.hwx_call(this, '18');
+
+        }
+
+        var c2 = new Class12();
+        console.log(c2)
+        c2.showSub(3, 1);
+        c2.showAdd(3, 1);
+
+        function fun(arg1, arg2) {
+            console.log(this.name)
+            console.log(arg1 + arg2)
+        }
+        const _this = { name: 'YIYING' }
+        // 只变更fun中的this指向，返回新function对象
+        const newFun = fun.hwx_bind(_this)
+        newFun(1, 2)
+
+
+        // console.log(Array.prototype.hwx_foreach.hwx_apply([1, 'q'], (el, i, array) => {
+        //     console.log(el, i, array)
+        // }))
+        // console.log(typeOf())
+        // console.log(typeOf(''))
+        // console.log(typeOf(null))
+        // console.log(typeOf([]))
+        // console.log(typeOf(Symbol()))
+        // console.log(typeOf(San))
     </script>
 </body>
 
