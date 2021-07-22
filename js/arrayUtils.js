@@ -1,16 +1,11 @@
 function typeOf(o) {
-    let res = Object.prototype.toString.call(o)//[Object String]
-    return res.slice(8, res.length - 1).toLocaleLowerCase();
-}
-
-function checkContext(ctx) {
-    if (ctx === undefined) {
-        throw new TypeError('this is null or not undefined');
-    }
+    return Object.prototype.toString.call(o).slice(8, -1).toLocaleLowerCase();
 }
 
 Array.prototype.hwx_flat = function () {
-    checkContext(this)
+    if (this === undefined) {
+        throw new TypeError('this is null or not undefined');
+    }
     let ctx = Object(this);
     const flatten = function (a, arr = []) {
         const len = a.length
@@ -28,7 +23,9 @@ Array.prototype.hwx_flat = function () {
 }
 
 Array.prototype.hwx_filter = function (callback, that) {
-    checkContext(this)
+    if (this === undefined) {
+        throw new TypeError('this is null or not undefined');
+    }
     if (typeOf(callback) !== 'function') {
         throw new TypeError('callback is not function')
     }
@@ -46,7 +43,9 @@ Array.prototype.hwx_filter = function (callback, that) {
 }
 
 Array.prototype.hwx_map = function (callback, that) {
-    checkContext(this)
+    if (this === undefined) {
+        throw new TypeError('this is null or not undefined');
+    }
     if (typeOf(callback) !== 'function') {
         throw new TypeError('callback is not function')
     }
@@ -63,7 +62,9 @@ Array.prototype.hwx_map = function (callback, that) {
 }
 
 Array.prototype.hwx_foreach = function (callback, that) {
-    checkContext(this)
+    if (this === undefined) {
+        throw new TypeError('this is null or not undefined');
+    }
     if (typeOf(callback) !== 'function') {
         throw new TypeError('callback is not function')
     }
@@ -77,7 +78,9 @@ Array.prototype.hwx_foreach = function (callback, that) {
 }
 
 Array.prototype.hwx_reduce = function (callback, initValue) {
-    checkContext(this)
+    if (this === undefined) {
+        throw new TypeError('this is null or not undefined');
+    }
     if (typeOf(callback) !== 'function') {
         throw new TypeError('callback is not function')
     }
@@ -130,9 +133,20 @@ Function.prototype.hwx_bind = function (context, ...args) {
     const self = this
     return function F() {
         if (this instanceof F) {
-            //context = this;
             return new self(...args, ...arguments)
         }
         return self.hwx_apply(context, [...args, ...arguments])
+    }
+}
+
+const hwx_curry = function (fn) {
+    let args = Array.prototype.slice.call(arguments, 1)
+    return function () {
+        let newArgs = args.concat([...arguments])
+        if (newArgs.length >= fn.length) {
+            return fn.apply(this, newArgs)
+        } else {
+            return hwx_curry.call(this, fn, ...newArgs)
+        }
     }
 }

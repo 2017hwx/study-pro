@@ -42,54 +42,54 @@
         //     console.log(acc, cur, index, array)
         //     return acc + cur
         // }))
-        function Class1(a1, a2, a3) {
-            this.a1 = a1
-            this.a2 = a2
-            this.a3 = a3
+        // function Class1(a1, a2, a3) {
+        //     this.a1 = a1
+        //     this.a2 = a2
+        //     this.a3 = a3
 
-        }
+        // }
 
-        function Class2(b2, b3) {
-            this.b2 = b2
-            this.b3 = b3
+        // function Class2(b2, b3) {
+        //     this.b2 = b2
+        //     this.b3 = b3
 
-        }
-        function Class3(name, name1) {
-            this.name = name
-            this.name1 = name1
-            this.showSub = function (a, b) {
-                console.log(a - b);
-            }
-        }
+        // }
+        // function Class3(name, name1) {
+        //     this.name = name
+        //     this.name1 = name1
+        //     this.showSub = function (a, b) {
+        //         console.log(a - b);
+        //     }
+        // }
 
-        function Class4(age) {
-            this.age = age
-            this.showAdd = function (a, b) {
-                console.log(a + b);
-            }
-        }
+        // function Class4(age) {
+        //     this.age = age
+        //     this.showAdd = function (a, b) {
+        //         console.log(a + b);
+        //     }
+        // }
 
-        function Class12() {
-            Class1.hwx_apply(this, ['a1', 'a2', 'a3']);
-            Class2.hwx_apply(this, ['a21', 'a32']);
-            Class3.hwx_call(this, 'name', '2222');
-            Class4.hwx_call(this, '18');
+        // function Class12() {
+        //     Class1.hwx_apply(this, ['a1', 'a2', 'a3']);
+        //     Class2.hwx_apply(this, ['a21', 'a32']);
+        //     Class3.hwx_call(this, 'name', '2222');
+        //     Class4.hwx_call(this, '18');
 
-        }
+        // }
 
-        var c2 = new Class12();
-        console.log(c2)
-        c2.showSub(3, 1);
-        c2.showAdd(3, 1);
+        // var c2 = new Class12();
+        // console.log(c2)
+        // c2.showSub(3, 1);
+        // c2.showAdd(3, 1);
 
-        function fun(arg1, arg2) {
-            console.log(this.name)
-            console.log(arg1 + arg2)
-        }
-        const _this = { name: 'YIYING' }
-        // 只变更fun中的this指向，返回新function对象
-        const newFun = fun.hwx_bind(_this)
-        newFun(1, 2)
+        // function fun(arg1, arg2) {
+        //     console.log(this.name)
+        //     console.log(arg1 + arg2)
+        // }
+        // const _this = { name: 'YIYING' }
+        // // 只变更fun中的this指向，返回新function对象
+        // const newFun = fun.hwx_bind(_this)
+        // newFun(1, 2)
 
 
         // console.log(Array.prototype.hwx_foreach.hwx_apply([1, 'q'], (el, i, array) => {
@@ -101,6 +101,13 @@
         // console.log(typeOf([]))
         // console.log(typeOf(Symbol()))
         // console.log(typeOf(San))
+        //console.log(Object.hwx_assign({}, { a: 1 }, { b: '2' }))
+        console.log(deepClone({ a: '222', b: 2, c: [1, '2'], d: () => { console.log('1') }, e: Symbol('0'), f: Date }))
+        const add = (a, b, c) => {
+            return a + b + c
+        }
+        const curryAdd = hwx_curry(add)
+        console.log(curryAdd(1)(2, 3))
     </script>
 </body>
 
