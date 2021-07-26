@@ -1,3 +1,6 @@
+const arraylog = new hwxLog()
+arraylog.open = true;
+
 function typeOf(o) {
     return Object.prototype.toString.call(o).slice(8, -1).toLocaleLowerCase();
 }
@@ -139,14 +142,14 @@ Function.prototype.hwx_bind = function (context, ...args) {
     }
 }
 
-const hwx_curry = function (fn) {
-    let args = Array.prototype.slice.call(arguments, 1)
-    return function () {
-        let newArgs = args.concat([...arguments])
-        if (newArgs.length >= fn.length) {
-            return fn.apply(this, newArgs)
-        } else {
-            return hwx_curry.call(this, fn, ...newArgs)
-        }
+String.prototype.hwxCamelCase = function () {
+    if (!this) return this
+    function toUp(x) {
+        return x.slice(1).toUpperCase();
     }
+    return this.replace(/-\w/g, toUp).replace(/_\w/g, toUp)
 }
+
+arraylog.log('is_hwx-abc'.hwxCamelCase())
+
+

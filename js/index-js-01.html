@@ -6,8 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="./tool.js"></script>
     <script src="./common.js"></script>
     <script src="./arrayUtils.js"></script>
+    <script src="./extends.js"></script>
+    <script src="./promise.js"></script>
+    <script src="./scheduler.js"></script>
+    <script src="./asyncawait.js"></script>
 </head>
 
 <body>
@@ -102,12 +107,22 @@
         // console.log(typeOf(Symbol()))
         // console.log(typeOf(San))
         //console.log(Object.hwx_assign({}, { a: 1 }, { b: '2' }))
-        console.log(deepClone({ a: '222', b: 2, c: [1, '2'], d: () => { console.log('1') }, e: Symbol('0'), f: Date }))
-        const add = (a, b, c) => {
-            return a + b + c
-        }
-        const curryAdd = hwx_curry(add)
-        console.log(curryAdd(1)(2, 3))
+        // console.log(deepClone({ a: '222', b: 2, c: [1, '2'], d: () => { console.log('1') }, e: Symbol('0'), f: Date }))
+        // const add = (a, b, c) => {
+        //     return a + b + c
+        // }
+        // const curryAdd = hwx_curry(add)
+        // console.log(curryAdd(1)(2, c))
+        // function Test(name) {
+        //     this.name = name
+        // }
+        // Test.prototype.isname = function () {
+        //     console.log(this.name)
+        // }
+        // console.log(new Test('hwx'))
+        // console.log(hwx_new(Test, 'hwx'))
+        // console.log(hwx_create(null),Object.create(null))
+        // console.log(hwx_instanceof(hwx_new(Test, 'hwx'), Test))
     </script>
 </body>
 
